@@ -1,5 +1,24 @@
-# 1. Load processed data from outputs/processed_data.csv
-# 2. Generate summary statistics and save to outputs/summary_stats.csv
-# 3. Compute correlation matrix, plot heatmap to outputs/figures/corr_heatmap.png
-# 4. Plot time series of Avg_Daily_Sugar_Intake by Continent, save figure
-# 5. Scatter plot Per_Capita_Sugar_Consumption vs GDP_Per_Capita, save figure
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def load_data(path):
+    return pd.read_csv(path)
+
+def summary_stats(df):
+    stats = df.describe()
+    out = 'outputs/summary_stats.csv'
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    stats.to_csv(out)
+
+def plot_corr(df):
+    corr = df.corr()
+    fig, ax = plt.subplots()
+    ax.imshow(corr, aspect='auto')
+    ax.set_xticks(range(len(corr)))
+    ax.set_yticks(range(len(corr)))
+    ax.set_xticklabels(corr.columns, rotation=90)
+    ax.set_yticklabels(corr.columns)
+    plt.tight_layout()
+    os.makedirs('outputs/figures', exist_ok=True)
+    fig.savefig('outputs/figures/corr_heatmap.png')
