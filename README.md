@@ -63,3 +63,16 @@ python scripts/04_ml_modeling.py
 python scripts/05_policy_simulation.py
 ```
 
+## Requirements
+- Python 3.8+
+- pandas
+- matplotlib
+- scikit-learn
+- statsmodels
+- joblib
+
+## Acknowledgments
+**dataset name:** Global Sugar Consumption Trends (1960–2023)  
+**dataset author:** Akshay Kumar  
+**dataset source:** https://www.kaggle.com/datasets/ak0212/global-sugar-consumption-trends-19602023
+
