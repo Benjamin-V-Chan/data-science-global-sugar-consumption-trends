@@ -28,3 +28,38 @@ project-root/
     └── simulation_results.csv
 ```
 
+## Usage
+1. Setup the Project:
+
+Clone the repository.
+Ensure you have Python installed.
+Install required dependencies using the requirements.txt file.
+```bash
+pip install -r requirements.txt
+```
+
+2. Run Data Preprocessing:
+```bash
+python scripts/01_data_preprocessing.py
+```
+
+3. Perform Exploratory Data Analysis:
+```bash
+python scripts/02_exploratory_analysis.py
+```
+
+4. Run Policy Impact Regression Analysis:
+```bash
+python scripts/03_policy_impact_analysis.py
+```
+
+5. Train Machine Learning Model:
+```bash
+python scripts/04_ml_modeling.py
+```
+
+6. Simulate Policy Intervention (e.g., Increase Gov_Tax):
+```bash
+python scripts/05_policy_simulation.py
+```
+
