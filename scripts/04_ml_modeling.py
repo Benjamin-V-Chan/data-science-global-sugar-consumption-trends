@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import joblib
+import math
 
 def load_data(path):
     return pd.read_csv(path)
@@ -20,7 +21,8 @@ def train_model(X_train, y_train):
 
 def evaluate(model, X_test, y_test):
     preds = model.predict(X_test)
-    rmse = mean_squared_error(y_test, preds, squared=False)
+    mse = mean_squared_error(y_test, preds)
+    rmse = math.sqrt(mse)
     r2  = r2_score(y_test, preds)
     return rmse, r2
 

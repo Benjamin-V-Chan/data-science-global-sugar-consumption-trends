@@ -12,7 +12,10 @@ def summary_stats(df):
     stats.to_csv(out)
 
 def plot_corr(df):
-    corr = df.corr()
+    numeric_df = df.select_dtypes(include="number")
+    if numeric_df.empty:
+        raise ValueError("No numeric columns available for correlation plot.")
+    corr = numeric_df.corr()
     fig, ax = plt.subplots()
     ax.imshow(corr, aspect='auto')
     ax.set_xticks(range(len(corr)))

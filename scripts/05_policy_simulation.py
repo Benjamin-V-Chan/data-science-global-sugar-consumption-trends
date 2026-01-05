@@ -6,14 +6,23 @@ def load_data(path):
     return pd.read_csv(path)
 
 def simulate(df, model, tax_delta=0.05):
-    sim = df.copy()
-    sim['Gov_Tax'] = sim['Gov_Tax'] + tax_delta
-    features = sim.drop(columns=['Country','Year','Per_Capita_Sugar_Consumption','Total_Sugar_Consumption','Avg_Daily_Sugar_Consumption'])
-    sim['Predicted_Original'] = model.predict(features)
-    # revert tax for new prediction
-    sim['Gov_Tax'] -= tax_delta
-    sim['Predicted_Simulated'] = model.predict(features.assign(Gov_Tax=sim['Gov_Tax']+tax_delta))
-    return sim[['Country','Year','Per_Capita_Sugar_Consumption','Predicted_Original','Predicted_Simulated']]
+    features = df.drop(
+        columns=[
+            "Country",
+            "Year",
+            "Per_Capita_Sugar_Consumption",
+            "Total_Sugar_Consumption",
+            "Avg_Daily_Sugar_Intake",
+        ]
+    )
+    preds_original = model.predict(features)
+    preds_simulated = model.predict(
+        features.assign(Gov_Tax=features["Gov_Tax"] + tax_delta)
+    )
+    sim = df[["Country", "Year", "Per_Capita_Sugar_Consumption"]].copy()
+    sim["Predicted_Original"] = preds_original
+    sim["Predicted_Simulated"] = preds_simulated
+    return sim
 
 def save_sim(sim_df, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
